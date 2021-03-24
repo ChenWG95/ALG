@@ -18,6 +18,12 @@ async function run(path, parent) {
 
   for (let i = 0; i < files.length; i++) {
     const dir = files[i]
+    const isConfig = /^./
+
+    if (isConfig.test(dir)) {
+      continue
+    }
+
     const stat = await fs.statSync(`${path}/${dir}`)
     if (stat.isDirectory()) {
       parent[dir] = await run(`${path}/${dir}`, {})
