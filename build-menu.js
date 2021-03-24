@@ -18,7 +18,7 @@ async function run(path, parent) {
 
   for (let i = 0; i < files.length; i++) {
     const dir = files[i]
-    const isConfig = /^./
+    const isConfig = /^\./
 
     if (isConfig.test(dir)) {
       continue
