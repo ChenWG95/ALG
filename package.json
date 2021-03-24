@@ -1,0 +1,14 @@
+{
+  "name": "alg",
+  "version": "1.0.0",
+  "description": "## a",
+  "main": "build-menu.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "husky": "^5.2.0"
+  }
+}
