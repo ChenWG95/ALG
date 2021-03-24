@@ -18,9 +18,9 @@ async function run(path, parent) {
 
   for (let i = 0; i < files.length; i++) {
     const dir = files[i]
-    const isConfig = /^\./
+    const isConfig = /^\./.test(dir) || ['node_modules'].find(dir)
 
-    if (isConfig.test(dir)) {
+    if (isConfig) {
       continue
     }
 
