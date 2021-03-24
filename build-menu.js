@@ -1,41 +1,39 @@
-// 遍历生成文件目录
-// 1级文件夹
-// 遍历文件夹 打印输出
-
-/**
- * {
- *  a: {
- *    a1: {
- *    }
- *  }
- * }
- */
 const fs = require('fs')
 const result = {}
 
-async function run(path, parent) {
+/** 遍历目录生成对应结构对象 */
+async function createMenuObj(path, parent) {
   const files = await fs.readdirSync(path)
 
   for (let i = 0; i < files.length; i++) {
     const dir = files[i]
-    const isConfig = /^\./.test(dir) || ['node_modules'].find(dir)
+    const isConfig = /^\./.test(dir) || ['node_modules'].find((item) => item === dir)
 
     if (isConfig) {
       continue
     }
 
-    const stat = await fs.statSync(`${path}/${dir}`)
+    const stat = await fs.statSync(`${path}${dir}`)
     if (stat.isDirectory()) {
-      parent[dir] = await run(`${path}/${dir}`, {})
+      parent[dir] = {}
+
+      const subDirs = await fs.readdirSync(`${path}/${dir}`)
+
+      for (let i = 0; i < subDirs.length; i++) {
+        const subPath = `${path}${dir}/${subDirs[i]}`
+        const stat = await fs.statSync(subPath)
+
+        if (stat.isDirectory()) {
+          parent[dir][subDirs[i]] = subPath
+        }
+      }
     }
   }
-
   return parent
 }
 
-async function main() {
-  const obj = await run(__dirname, result)
-  
+/** 写入目录 */
+async function writeMenu(obj) {
   let str = '# ALG\n\n'
   for (key in obj) {
     str += `## ${key}\n\n`
@@ -43,7 +41,7 @@ async function main() {
     let subObj = obj[key]
     if (Object.keys(subObj).length) {
       for (k in subObj) {
-        str += `- ${k}\n`
+        str += `- [${k}](${subObj[k]})\n`
       }
       str += '\n'
     }
@@ -53,8 +51,9 @@ async function main() {
   fs.writeFileSync('README.md', buffer)
 }
 
+async function main() {
+  const obj = await createMenuObj('./', result)
+  writeMenu(obj)
+}
+
 main()
-
-// 遍历N层结构
-
-// 打印层级对象

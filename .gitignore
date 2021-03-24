@@ -1,1 +1,5 @@
 node_modules
+# .husky
+# build-menu.js
+# package.json
+# package-lock.json
