@@ -1,4 +1,4 @@
-# 1-两数相加
+# 两数相加
 
 [LeetCode链接](https://leetcode-cn.com/problems/two-sum/comments/)
 
