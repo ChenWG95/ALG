@@ -18,3 +18,18 @@ function isStraight(nums) {
 }
 
 console.log(isStraight([4,7,5,9,2]))
+
+
+function isStraight(nums) {
+  const noZeroNums = nums.filter(item => item !== 0)
+  const noZeroSet = new Set(noZeroNums)
+  const maxVal = Math.max(noZeroNums)
+  const minVal = Math.min(noZeroNums)
+  const zeroCount = nums.length - noZeroNums.length
+
+  if (noZeroNums.length === noZeroSet.size && (maxVal - minVal < 5)) {
+    return true
+  }
+
+  return false
+}

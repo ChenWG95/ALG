@@ -4,6 +4,6 @@ function swap(arr, i, j) {
 
 module.exports = {
   swap,
-  findMaxValue,
-  findMinValue
+  // findMaxValue,
+  // findMinValue
 }
